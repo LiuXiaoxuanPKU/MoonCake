@@ -1,0 +1,58 @@
+.fs-wrap {
+    display: inline-block;
+    cursor: pointer;
+    line-height: 1.8;
+    width: 100%;
+}
+.fs-dropdown {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.fs-selectAll,
+.fs-deSelectAll,
+.fs-showSelected {
+    padding-left: 10px;
+    border-bottom: 1px solid #eee;
+}
+.dropdown-menu.dropdown-menu-right {
+    z-index: 1001;
+}
+.fs-option-label input {
+    margin: 3px;
+}
+.fs-dropdown {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    width: 100%;
+    margin-top: 5px;
+    z-index: 1000;
+}
+.fs-dropdown {
+    max-height: 380px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.fs-option {
+    padding: 6px 8px;
+    border-bottom: 1px solid #eee;
+    cursor: default;
+}
+.fs-option:last-child,
+.fs-showSelected {
+    border-bottom: none;
+}
+.fs-option {
+    cursor: pointer;
+}
+.fs-option.disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+.hidden {
+    display: none;
+}
