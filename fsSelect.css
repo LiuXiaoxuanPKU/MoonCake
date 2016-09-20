@@ -32,10 +32,9 @@
 }
 .fs-dropdown {
     max-height: 380px;
-    text-overflow: ellipsis;
     white-space: nowrap;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
 }
 .fs-option {
     padding: 6px 8px;
