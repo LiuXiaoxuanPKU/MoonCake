@@ -182,9 +182,9 @@
       var numberOfWordsInOpt = length / ( 370 / 50 ); 
       if (length > numberOfWordsInOpt){
         var index = 2 / 5 * numberOfWordInOpt;
-        return text.slice(0, index ) + '...' + text.slice(length - index, length);
+        return newtext.slice( 0, index ) + '...' + newtext.slice(length - index, length);
       }
-      return text;
+      return newtext;
     },
 
     openDropdown: function($wrap) {
