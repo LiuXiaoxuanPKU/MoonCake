@@ -176,9 +176,14 @@
      * @return {!string}
      */
     shortenOptionText: function(text) {
-      var length = text.length;
-      if (length > 50)
-        return text.slice(0, 20) + '...' + text.slice(length - 20, length);
+      //delete the 'http://' or 'https://'
+      var newtext = text.split('//')[1];
+      var length = newtext.length;
+      var numberOfWordsInOpt = length / ( 370 / 50 ); 
+      if (length > numberOfWordsInOpt){
+        var index = 2 / 5 * numberOfWordInOpt;
+        return text.slice(0, index ) + '...' + text.slice(length - index, length);
+      }
       return text;
     },
 
