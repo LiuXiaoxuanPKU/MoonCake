@@ -350,9 +350,15 @@
         if (Data.chosenOptionIndexes.findIndex(function(i) {
               return i === index;
             }) != -1)
+        {
           $(this).find('input').get(0).checked = true;
+          $(this).addClass('selected');
+        }
         else
+        {
           $(this).find('input').get(0).checked = false;
+          $(this).removeClass('selected');
+        }
       });
     },
     /**
