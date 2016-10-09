@@ -18,14 +18,7 @@
                             .attr('placeholder', Data.placeholder)
                             .addClass('form-control');
 
-      var selectFunctionButton =
-          $('<button></button>')
-              .attr('type', 'button')
-              .attr('data-toggle', 'dropdown')
-              .attr('aria-haspopup', 'true')
-              .attr('aria-expanded', 'false')
-              .addClass('btn btn-default')
-              .append('<span class="glyphicon glyphicon-plus"></span>');
+
 
       var selectAll =
           $('<li></li>').addClass('fs-selectAll').text('Select All');
@@ -36,19 +29,20 @@
 
       var functionMenu = $('<ul></ul>')
                              .addClass('dropdown-menu dropdown-menu-right')
+                             .attr('role', 'menu')
                              .append(selectAll, deSelectAll, showSelected);
 
-      var resourceMenuButton = $('<button></button>')
-                                   .addClass('fs-resourceMenuButton')
-                                   .addClass('btn btn-default')
-                                   .append('<span class="caret"></span>');
+      var functionMenuButton = $('<button></button>')
+                                   .attr('type', 'button')
+                                   .addClass('btn btn-default dropdown-toggle')
+                                   .attr('data-toggle','dropdown')
+                                   .append('<span class="glyphicon-plus"></span>')
 
-      var inputGroup =
-          $('<div></div>')
-              .addClass('input-group-btn')
-              .append(selectFunctionButton, functionMenu, resourceMenuButton);
+      var inputGroupButton = $('<div></div>')
+                                 .addClass('input-group-btn')
+                                 .append(functionMenuButton, functionMenu);
 
-      var search = searchGroup.append(searchInput, inputGroup);
+      var search = searchGroup.append(searchInput, inputGroupButton);
 
       // The whole plugin is with in the <div class=fs-wrap/>
       this.$select.wrap('<div class=fs-wrap/>');
@@ -129,7 +123,7 @@
       if ($fsDropdown.hasClass('hidden'))
         Methods.openDropdown();
       else {
-        console.log('test');
+      //  console.log('test');
         Methods.closeDropdown();
       }
       this.blur();
@@ -179,9 +173,9 @@
       //delete the 'http://' or 'https://'
       var newtext = text.split('//')[1];
       var length = newtext.length;
-      var numberOfWordsInOpt = length / ( 370 / 50 ); 
+      var numberOfWordsInOpt = $('.fs-wrap').get(0).clientWidth / ( 370 / 50 );
       if (length > numberOfWordsInOpt){
-        var index = 2 / 5 * numberOfWordInOpt;
+        var index = numberOfWordsInOpt * 2 / 5;
         return newtext.slice( 0, index ) + '...' + newtext.slice(length - index, length);
       }
       return newtext;
@@ -277,6 +271,34 @@
       $('.fs-option').on('mouseout', mouseOverFunction);
       return this;
     },
+     /**
+     *
+     * @param {string, object} event, function
+     * @return {this}
+     */
+    unbindOptions: function(eventType, functionName) {
+      var length = arguments.length;
+      switch(length)
+      {
+        // unbind all events
+        case 0:
+          $('.fs-option').unbind();
+          break;
+        // only with eventType name arg
+        case 1:
+          $('.fs-option').unbind(eventType);
+          break;
+        case 2:
+          console.log('selectedOptionIndex',Data.selectedOptionIndex);
+          $('.fs-option').unbind(eventType,functionName)
+          break;
+        default:
+          throw 'wrong number of arguments';
+      }
+      // Bind default events
+      Methods.addEvents();
+      return this;
+    },
     /**
      *
      * @param {!object} selectAllFunction
@@ -304,7 +326,6 @@
       $('.fs-showSelected').on('click', showSelectedFunction);
       return this;
     },
-
     /**
      * Get data
      */
@@ -350,15 +371,9 @@
         if (Data.chosenOptionIndexes.findIndex(function(i) {
               return i === index;
             }) != -1)
-        {
           $(this).find('input').get(0).checked = true;
-          $(this).addClass('selected');
-        }
         else
-        {
           $(this).find('input').get(0).checked = false;
-          $(this).removeClass('selected');
-        }
       });
     },
     /**
